@@ -11,7 +11,7 @@ use Notdefine\Workflow\Node\DetermineCustomerNode;
 use Notdefine\Workflow\Node\DetermineMealNode;
 use Notdefine\Workflow\Node\OrderCompleteNode;
 use Notdefine\Workflow\Node\OrderIncompleteNode;
-use Notdefine\Workflow\StructuredOutput\Customer;
+use Notdefine\Workflow\StructuredOutput\CustomerStructure;
 
 
 class OrderMealWorkflow extends Workflow

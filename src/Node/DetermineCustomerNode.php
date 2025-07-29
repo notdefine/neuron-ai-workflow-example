@@ -9,7 +9,7 @@ use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Workflow\Node;
 use NeuronAI\Workflow\WorkflowState;
 use Notdefine\Workflow\Agent\GetCustomerAgent;
-use Notdefine\Workflow\StructuredOutput\Customer;
+use Notdefine\Workflow\StructuredOutput\CustomerStructure;
 use Notdefine\Workflow\Workflow\OrderMealWorkflow;
 
 class DetermineCustomerNode extends Node
@@ -23,10 +23,10 @@ class DetermineCustomerNode extends Node
             return $state;
         }
 
-        /** @var Customer $customer */
+        /** @var CustomerStructure $customer */
         $customer = GetCustomerAgent::make()->structured(
             new UserMessage($state->get('user_input')),
-            Customer::class,
+            CustomerStructure::class,
         );
 
         $agentText = GetCustomerAgent::make()->chat(

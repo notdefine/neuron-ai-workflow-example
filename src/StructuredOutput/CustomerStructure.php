@@ -6,7 +6,7 @@ namespace Notdefine\Workflow\StructuredOutput;
 
 use NeuronAI\StructuredOutput\SchemaProperty;
 
-class Customer
+class CustomerStructure
 {
     #[SchemaProperty(description: 'The customers name.', required: true)]
     public string $name;
