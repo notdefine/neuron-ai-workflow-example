@@ -35,7 +35,6 @@ class DetermineCustomerNode extends Node
 
         if ($customer->getCustomerId() === 0) {
             echo "[Customer not known]" . PHP_EOL;
-            dump($agentText->getContent());
             $state->set(OrderMealWorkflow::KI_RESPONSE, $agentText->getContent());
             return $state;
         }
