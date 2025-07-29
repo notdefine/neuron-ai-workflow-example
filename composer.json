@@ -1,0 +1,23 @@
+{
+  "name": "notdefine/neuron-ai-workflow-example",
+  "description": "Example implementation of a neuron-ai workflow",
+  "type": "project",
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "Notdefine\\Workflow\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Thomas Eimers"
+    }
+  ],
+  "require": {
+    "inspector-apm/neuron-ai": "^1.16",
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "@stable"
+  }
+}
