@@ -20,11 +20,11 @@ class DetermineMealNode extends Node
     public function run(WorkflowState $state): WorkflowState
     {
         echo self::class . PHP_EOL;
-        $mealOrderAgentStructred = MealOrderAgent::make();
-        $mealOrderAgentStructred = $this->addAgentMonitoring($mealOrderAgentStructred);
+        $mealOrderAgentStructured = MealOrderAgent::make();
+        $mealOrderAgentStructured = $this->addAgentMonitoring($mealOrderAgentStructured);
 
         /** @var MealStructure $mealOrderAgentStructuredResponse */
-        $mealOrderAgentStructuredResponse = $mealOrderAgentStructred->structured(
+        $mealOrderAgentStructuredResponse = $mealOrderAgentStructured->structured(
             new UserMessage($state->get('user_input')),
             MealStructure::class,
         );

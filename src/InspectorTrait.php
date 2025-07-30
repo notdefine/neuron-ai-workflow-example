@@ -21,12 +21,14 @@ trait InspectorTrait
                 return $agent;
             }
 
-            $this->inspector = new Inspector(new Configuration($inspectorKey));
+            $configuration = new Configuration($inspectorKey);
+            $this->inspector = new Inspector($configuration);
         }
 
-        return $agent->observe(
+        $agent->observe(
             new AgentMonitoring($this->inspector),
         );
+        return  $agent;
     }
 }
 
