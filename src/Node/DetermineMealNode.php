@@ -9,30 +9,39 @@ use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Workflow\Node;
 use NeuronAI\Workflow\WorkflowState;
 use Notdefine\Workflow\Agent\MealOrderAgent;
+use Notdefine\Workflow\InspectorTrait;
 use Notdefine\Workflow\StructuredOutput\MealStructure;
 use Notdefine\Workflow\Workflow\OrderMealWorkflow;
 
 class DetermineMealNode extends Node
 {
+    use InspectorTrait;
+
     public function run(WorkflowState $state): WorkflowState
     {
         echo self::class . PHP_EOL;
-        /** @var MealStructure $meal */
-        $meal = MealOrderAgent::make()->structured(
+        $mealOrderAgentStructred = MealOrderAgent::make();
+        $mealOrderAgentStructred = $this->addAgentMonitoring($mealOrderAgentStructred);
+
+        /** @var MealStructure $mealOrderAgentStructuredResponse */
+        $mealOrderAgentStructuredResponse = $mealOrderAgentStructred->structured(
             new UserMessage($state->get('user_input')),
             MealStructure::class,
         );
 
-        if ($meal->isComplete()) {
-            $state->set(OrderMealWorkflow::MEAL_OBJECT, $meal);
+        if ($mealOrderAgentStructuredResponse->isComplete()) {
+            $state->set(OrderMealWorkflow::MEAL_OBJECT, $mealOrderAgentStructuredResponse);
             return $state;
         }
 
-        $agentText = MealOrderAgent::make()->chat(
+        $mealOrderAgentChat = MealOrderAgent::make();
+        $mealOrderAgentChat = $this->addAgentMonitoring($mealOrderAgentChat);
+
+        $mealOrderAgentChatResponse = $mealOrderAgentChat->chat(
             new UserMessage($state->get('user_input')),
         );
 
-        $state->set(OrderMealWorkflow::KI_RESPONSE, $agentText->getContent());
+        $state->set(OrderMealWorkflow::KI_RESPONSE, $mealOrderAgentChatResponse->getContent());
 
         return $state;
     }
