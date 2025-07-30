@@ -28,7 +28,7 @@ trait InspectorTrait
         $agent->observe(
             new AgentMonitoring($this->inspector),
         );
-        return  $agent;
+        return $agent;
     }
 }
 

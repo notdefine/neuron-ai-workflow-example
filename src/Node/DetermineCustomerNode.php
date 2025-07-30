@@ -28,7 +28,6 @@ class DetermineCustomerNode extends Node
 
         $customerAgentStructure = GetCustomerAgent::make();
         $customerAgentStructure = $this->addAgentMonitoring($customerAgentStructure);
-
         /** @var CustomerStructure $customerAgentStructureResponse */
         $customerAgentStructureResponse = $customerAgentStructure->structured(
             new UserMessage($state->get('user_input')),
