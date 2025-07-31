@@ -8,48 +8,65 @@ use NeuronAI\Workflow\Edge;
 use NeuronAI\Workflow\Workflow;
 use NeuronAI\Workflow\WorkflowState;
 use Notdefine\Workflow\Agent\MealOrderAgent;
+use Notdefine\Workflow\InspectorTrait;
 use Notdefine\Workflow\Node\DetermineCustomerNode;
 use Notdefine\Workflow\Node\DetermineMealNode;
+use Notdefine\Workflow\Node\NotFinished;
 use Notdefine\Workflow\Node\OrderCompleteNode;
-use Notdefine\Workflow\Node\OrderIncompleteNode;
+use Notdefine\Workflow\StructuredOutput\CustomerStructure;
+use Notdefine\Workflow\StructuredOutput\MealStructure;
 
 class OrderMealWorkflow extends Workflow
 {
+    use InspectorTrait;
+
     public const KI_RESPONSE = 'response';
     public const CUSTOMER_OBJECT = 'customerObject';
     public const MEAL_OBJECT = 'chosenMeal';
 
     public function nodes(): array
     {
-        dump('nodes');
+        $mealOrderAgentStructured = MealOrderAgent::make();
+        $mealOrderAgentChat = MealOrderAgent::make();
+
+        /** @var MealOrderAgent $mealOrderAgentStructured */
+        $mealOrderAgentStructured = $this->addAgentMonitoring($mealOrderAgentStructured);
+        /** @var MealOrderAgent $mealOrderAgentChat */
+        $mealOrderAgentChat = $this->addAgentMonitoring($mealOrderAgentChat);
+
         // Nodes do the work, Edges tell what to do next.
         return [
             new DetermineCustomerNode(),
             new DetermineMealNode(
-                MealOrderAgent::make(),
-                MealOrderAgent::make(),
+                $mealOrderAgentChat,
+                $mealOrderAgentStructured,
             ),
-            new OrderIncompleteNode(),
+            new NotFinished(),
             new OrderCompleteNode(),
         ];
     }
 
+    private function isMealComplete($state): bool
+    {
+        /** @var MealStructure $meal */
+        $meal = $state->get(self::MEAL_OBJECT);
+        if ($meal === null) {
+            echo '[MealStructure unknown]' . PHP_EOL;
+            return false;
+        }
+        return $meal->isComplete();
+    }
+
     private function isCustomerStateDone($state): bool
     {
-        /** @customer Customer $customer */
+        /** @var CustomerStructure $customer */
         $customer = $state->get(self::CUSTOMER_OBJECT);
         if ($customer === null) {
-            echo '[CustomerState unknown]' . PHP_EOL;
+            echo '[CustomerStructure unknown]' . PHP_EOL;
             return false;
         }
 
-        if ($customer->getCustomerId() === 0) {
-            echo '[CustomerState Customer ID is wrong]' . PHP_EOL;
-            return false;
-        }
-
-        echo '[CustomerState is set with ' . $customer->getCustomerId() . ']' . PHP_EOL;
-        return true;
+        return $customer->isComplete();
     }
 
     public function edges(): array
@@ -65,13 +82,27 @@ class OrderMealWorkflow extends Workflow
 
             new Edge(
                 DetermineCustomerNode::class,
-                OrderIncompleteNode::class,
+                NotFinished::class,
                 function (WorkflowState $state): bool {
                     return !$this->isCustomerStateDone($state);
                 },
             ),
 
-            new Edge(DetermineMealNode::class, OrderIncompleteNode::class),
+            new Edge(
+                DetermineMealNode::class,
+                OrderCompleteNode::class,
+                function (WorkflowState $state): bool {
+                    return $this->isMealComplete($state);
+                },
+            ),
+
+            new Edge(
+                DetermineMealNode::class,
+                NotFinished::class,
+                function (WorkflowState $state): bool {
+                    return !$this->isMealComplete($state);
+                },
+            ),
         ];
     }
 
@@ -83,7 +114,7 @@ class OrderMealWorkflow extends Workflow
     protected function end(): array
     {
         return [
-            OrderIncompleteNode::class,
+            NotFinished::class,
             OrderCompleteNode::class,
         ];
     }

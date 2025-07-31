@@ -49,6 +49,8 @@ class DetermineCustomerNode extends Node
         echo '[Customer known]' . PHP_EOL;
         $state->set(OrderMealWorkflow::KI_RESPONSE, $customerAgentChatResponse->getContent());
         $state->set(OrderMealWorkflow::CUSTOMER_OBJECT, $customerAgentStructureResponse);
+        $state->set('user_input', ''); // No prepared Message for next Agent
+
 
         return $state;
     }

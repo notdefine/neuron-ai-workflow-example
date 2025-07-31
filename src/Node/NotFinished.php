@@ -7,7 +7,7 @@ namespace Notdefine\Workflow\Node;
 use NeuronAI\Workflow\Node;
 use NeuronAI\Workflow\WorkflowState;
 
-class OrderIncompleteNode extends Node
+class NotFinished extends Node
 {
     public function run(WorkflowState $state): WorkflowState
     {

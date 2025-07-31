@@ -44,8 +44,7 @@ $response = $agent->chat(new UserMessage(...));
             background: ['You are an AI Agent specialized to take a meal order.'],
             steps: [
                 'Get all details needed what the customer wants to eat and drink. Get the Customers name for the delivery.',
-                'Suggest a matching meal and drink.',
-                'Show a order summary. And let the customer approve the order.',
+                'Show a order summary.',
             ],
             output: [
                 'Write a summary of the Order in a paragraph without using lists. Use just fluent text.',

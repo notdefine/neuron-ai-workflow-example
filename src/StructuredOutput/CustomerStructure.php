@@ -23,4 +23,15 @@ class CustomerStructure
     {
         return $this->customerId;
     }
+
+    public function isComplete(): bool
+    {
+        if ($this->customerId === 0) {
+            echo '[CustomerState Customer ID is wrong]' . PHP_EOL;
+            return false;
+        }
+
+        echo '[CustomerState is set with ' . $this->customerId . ']' . PHP_EOL;
+        return true;
+    }
 }

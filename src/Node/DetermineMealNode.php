@@ -17,6 +17,7 @@ class DetermineMealNode extends Node
     use InspectorTrait;
 
     public function __construct(
+        // Agents must be always the same instance to keep chat history
         private readonly MealOrderAgent $mealOrderAgentStructured,
         private readonly MealOrderAgent $mealOrderAgentChat,
     ) {}
@@ -24,22 +25,21 @@ class DetermineMealNode extends Node
     public function run(WorkflowState $state): WorkflowState
     {
         echo self::class . PHP_EOL;
-        $mealOrderAgentStructured = $this->addAgentMonitoring($this->mealOrderAgentStructured);
+        echo 'Message from user ' . $state->get('user_input') . PHP_EOL;
 
         /** @var MealStructure $mealOrderAgentStructuredResponse */
-        $mealOrderAgentStructuredResponse = $mealOrderAgentStructured->structured(
+        $mealOrderAgentStructuredResponse = $this->mealOrderAgentStructured->structured(
             new UserMessage($state->get('user_input')),
             MealStructure::class,
         );
 
         if ($mealOrderAgentStructuredResponse->isComplete()) {
+            echo '[Meal is complete!]' . PHP_EOL;
             $state->set(OrderMealWorkflow::MEAL_OBJECT, $mealOrderAgentStructuredResponse);
             return $state;
         }
 
-        $mealOrderAgentChat = $this->addAgentMonitoring($this->mealOrderAgentChat);
-
-        $mealOrderAgentChatResponse = $mealOrderAgentChat->chat(
+        $mealOrderAgentChatResponse = $this->mealOrderAgentChat->chat(
             new UserMessage($state->get('user_input')),
         );
 
