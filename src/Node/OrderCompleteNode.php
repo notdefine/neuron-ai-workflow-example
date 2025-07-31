@@ -16,7 +16,7 @@ class OrderCompleteNode extends Node
         echo self::class . PHP_EOL;
 
         /** @var MealStructure $meal */
-        $meal = $state->get(OrderMealWorkflow::MEAL_OBJECT);
+        $meal = $state->get(MealStructure::STATE_KEY);
         $state->set(
             OrderMealWorkflow::KI_RESPONSE,
             'Sending order to kitchen'

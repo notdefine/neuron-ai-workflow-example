@@ -8,6 +8,8 @@ use NeuronAI\StructuredOutput\SchemaProperty;
 
 class MealStructure
 {
+    public const STATE_KEY = 'MealStructure';
+
     #[SchemaProperty(description: 'The customers name.  If you dont know, leave it empty.', required: true)]
     public string $name;
 

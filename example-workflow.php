@@ -6,6 +6,7 @@ namespace Notdefine\Workflow\Workflow;
 
 use NeuronAI\Workflow\Persistence\FilePersistence;
 use NeuronAI\Workflow\WorkflowState;
+use Notdefine\Workflow\StructuredOutput\MealStructure;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -36,4 +37,4 @@ while (!empty($textInput)) {
     $textInput = trim(fgets(STDIN));
 }
 
-dd($state->get(OrderMealWorkflow::MEAL_OBJECT));
+dd($state->get(MealStructure::STATE_KEY));

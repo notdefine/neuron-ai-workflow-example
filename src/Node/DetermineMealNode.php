@@ -35,7 +35,7 @@ class DetermineMealNode extends Node
 
         if ($mealOrderAgentStructuredResponse->isComplete()) {
             echo '[Meal is complete!]' . PHP_EOL;
-            $state->set(OrderMealWorkflow::MEAL_OBJECT, $mealOrderAgentStructuredResponse);
+            $state->set(MealStructure::STATE_KEY, $mealOrderAgentStructuredResponse);
             return $state;
         }
 

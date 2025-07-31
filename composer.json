@@ -17,8 +17,13 @@
     "inspector-apm/neuron-ai": "^1.16",
     "php": "^8.2"
   },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse -c ./phpstan.neon --ansi",
+    "ecs": "vendor/bin/ecs check --fix -c ./ecs.php"
+  },
   "require-dev": {
     "symfony/var-dumper": "@stable",
-    "symplify/easy-coding-standard": "^12.0.0"
+    "symplify/easy-coding-standard": "^12.0.0",
+    "phpstan/phpstan": "^2.0.0"
   }
-}
+},

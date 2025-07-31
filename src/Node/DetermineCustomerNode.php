@@ -20,8 +20,8 @@ class DetermineCustomerNode extends Node
     {
         echo self::class . PHP_EOL;
 
-        if (!empty($state->get(OrderMealWorkflow::CUSTOMER_OBJECT))) {
-            echo '[Customer already known]' . PHP_EOL;
+        if (!empty($state->get(CustomerStructure::STATE_KEY))) {
+            echo '[CustomerStructure already known]' . PHP_EOL;
             return $state;
         }
 
@@ -48,7 +48,7 @@ class DetermineCustomerNode extends Node
 
         echo '[Customer known]' . PHP_EOL;
         $state->set(OrderMealWorkflow::KI_RESPONSE, $customerAgentChatResponse->getContent());
-        $state->set(OrderMealWorkflow::CUSTOMER_OBJECT, $customerAgentStructureResponse);
+        $state->set(CustomerStructure::STATE_KEY, $customerAgentStructureResponse);
         $state->set('user_input', ''); // No prepared Message for next Agent
 
 

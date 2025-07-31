@@ -21,8 +21,6 @@ class OrderMealWorkflow extends Workflow
     use InspectorTrait;
 
     public const KI_RESPONSE = 'response';
-    public const CUSTOMER_OBJECT = 'customerObject';
-    public const MEAL_OBJECT = 'chosenMeal';
 
     public function nodes(): array
     {
@@ -46,10 +44,10 @@ class OrderMealWorkflow extends Workflow
         ];
     }
 
-    private function isMealComplete($state): bool
+    private function isMealComplete(WorkflowState $state): bool
     {
-        /** @var MealStructure $meal */
-        $meal = $state->get(self::MEAL_OBJECT);
+        /** @var MealStructure|null $meal */
+        $meal = $state->get(MealStructure::STATE_KEY);
         if ($meal === null) {
             echo '[MealStructure unknown]' . PHP_EOL;
             return false;
@@ -57,10 +55,10 @@ class OrderMealWorkflow extends Workflow
         return $meal->isComplete();
     }
 
-    private function isCustomerStateDone($state): bool
+    private function isCustomerStateDone(WorkflowState  $state): bool
     {
-        /** @var CustomerStructure $customer */
-        $customer = $state->get(self::CUSTOMER_OBJECT);
+        /** @var CustomerStructure|null $customer */
+        $customer = $state->get(CustomerStructure::STATE_KEY);
         if ($customer === null) {
             echo '[CustomerStructure unknown]' . PHP_EOL;
             return false;

@@ -8,6 +8,8 @@ use NeuronAI\StructuredOutput\SchemaProperty;
 
 class CustomerStructure
 {
+    public const STATE_KEY = 'CustomerStructure';
+
     #[SchemaProperty(description: 'The customers name.', required: true)]
     public string $name;
 
