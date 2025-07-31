@@ -13,7 +13,6 @@ class MealOrderAgent extends Agent
 {
     /*
      Das geht auch fluent - falls die settings aus zb. einer konfiguration kommen
-
       $agent = Agent::make()
     ->withAiProvider(
         new Anthropic(
@@ -25,7 +24,6 @@ class MealOrderAgent extends Agent
         new SystemPrompt(...)
     )
     ->addTool([...]);
-
 $response = $agent->chat(new UserMessage(...));
      */
     protected function provider(): AIProviderInterface
@@ -56,42 +54,42 @@ $response = $agent->chat(new UserMessage(...));
 
         return (string)$prompt;
     }
-//
-//    protected function tools(): array
-//    {
-//        return [
-//            Tool::make(
-//                'get_meals',
-//                'Retrieve the possible meals.',
-//            )
-//                ->addProperty(
-//                    new ToolProperty(
-//                        name: 'order_number',
-//                        type: PropertyType::from('string'),
-//                        description: 'The OrderNumber of the MMS Order.',
-//                        required: true,
-//                    ),
-//                )
-//                ->setCallable(
-//                    fn(): string => '
-//                        Teenagers / Adolescents (13–18 years)
-//    Middle school students
-//    High school students
-//
-//Young Adults (18–25 years)
-//
-//    College/university students
-//    Early career professionals
-//
-//Adults
-//
-//    Young professionals (25–35 years)
-//    Mid-career professionals (35–55 years)
-//    Older adults (55+ years)
-//
-//Seniors / Elderly (65+ years)
-//',
-//                ),
-//        ];
-//    }
+    //
+    //    protected function tools(): array
+    //    {
+    //        return [
+    //            Tool::make(
+    //                'get_meals',
+    //                'Retrieve the possible meals.',
+    //            )
+    //                ->addProperty(
+    //                    new ToolProperty(
+    //                        name: 'order_number',
+    //                        type: PropertyType::from('string'),
+    //                        description: 'The OrderNumber of the MMS Order.',
+    //                        required: true,
+    //                    ),
+    //                )
+    //                ->setCallable(
+    //                    fn(): string => '
+    //                        Teenagers / Adolescents (13–18 years)
+    //    Middle school students
+    //    High school students
+    //
+    //Young Adults (18–25 years)
+    //
+    //    College/university students
+    //    Early career professionals
+    //
+    //Adults
+    //
+    //    Young professionals (25–35 years)
+    //    Mid-career professionals (35–55 years)
+    //    Older adults (55+ years)
+    //
+    //Seniors / Elderly (65+ years)
+    //',
+    //                ),
+    //        ];
+    //    }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Notdefine\Workflow\Node;
 
-
 use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Workflow\Node;
 use NeuronAI\Workflow\WorkflowState;
@@ -22,7 +21,7 @@ class DetermineCustomerNode extends Node
         echo self::class . PHP_EOL;
 
         if (!empty($state->get(OrderMealWorkflow::CUSTOMER_OBJECT))) {
-            echo "[Customer already known]" . PHP_EOL;
+            echo '[Customer already known]' . PHP_EOL;
             return $state;
         }
 
@@ -42,12 +41,12 @@ class DetermineCustomerNode extends Node
         );
 
         if ($customerAgentStructureResponse->getCustomerId() === 0) {
-            echo "[Customer not known]" . PHP_EOL;
+            echo '[Customer not known]' . PHP_EOL;
             $state->set(OrderMealWorkflow::KI_RESPONSE, $customerAgentChatResponse->getContent());
             return $state;
         }
 
-        echo "[Customer known]" . PHP_EOL;
+        echo '[Customer known]' . PHP_EOL;
         $state->set(OrderMealWorkflow::KI_RESPONSE, $customerAgentChatResponse->getContent());
         $state->set(OrderMealWorkflow::CUSTOMER_OBJECT, $customerAgentStructureResponse);
 

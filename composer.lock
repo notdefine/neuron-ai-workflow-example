@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "971560fd157a7dcdd2a4c2d0df96a524",
+    "content-hash": "3e2e8dc34ccdf028af4b1473896e33fb",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -389,16 +389,16 @@
         },
         {
             "name": "inspector-apm/neuron-ai",
-            "version": "1.16.5",
+            "version": "1.16.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inspector-apm/neuron-ai.git",
-                "reference": "acd10f7be0ac97eccef8a174b97d3f30d5599621"
+                "reference": "7d9925e4426420700e879e08255cc3965c15c932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inspector-apm/neuron-ai/zipball/acd10f7be0ac97eccef8a174b97d3f30d5599621",
-                "reference": "acd10f7be0ac97eccef8a174b97d3f30d5599621",
+                "url": "https://api.github.com/repos/inspector-apm/neuron-ai/zipball/7d9925e4426420700e879e08255cc3965c15c932",
+                "reference": "7d9925e4426420700e879e08255cc3965c15c932",
                 "shasum": ""
             },
             "require": {
@@ -451,9 +451,9 @@
             "description": "The AI Agent Development Kit for PHP.",
             "support": {
                 "issues": "https://github.com/inspector-apm/neuron-ai/issues",
-                "source": "https://github.com/inspector-apm/neuron-ai/tree/1.16.5"
+                "source": "https://github.com/inspector-apm/neuron-ai/tree/1.16.7"
             },
-            "time": "2025-07-28T15:05:02+00:00"
+            "time": "2025-07-29T19:25:30+00:00"
         },
         {
             "name": "psr/http-client",
@@ -942,6 +942,67 @@
                 }
             ],
             "time": "2025-06-27T19:55:54+00:00"
+        },
+        {
+            "name": "symplify/easy-coding-standard",
+            "version": "12.5.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easy-coding-standard/easy-coding-standard.git",
+                "reference": "4581ec472a86ff11f2f3909a4dd14a9e6fa2110b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/4581ec472a86ff11f2f3909a4dd14a9e6fa2110b",
+                "reference": "4581ec472a86ff11f2f3909a4dd14a9e6fa2110b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "conflict": {
+                "friendsofphp/php-cs-fixer": "<3.46",
+                "phpcsstandards/php_codesniffer": "<3.8",
+                "symplify/coding-standard": "<12.1"
+            },
+            "suggest": {
+                "ext-dom": "Needed to support checkstyle output format in class CheckstyleOutputFormatter"
+            },
+            "bin": [
+                "bin/ecs"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer",
+            "keywords": [
+                "Code style",
+                "automation",
+                "fixer",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/easy-coding-standard/easy-coding-standard/issues",
+                "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/12.5.22"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-07-31T06:08:02+00:00"
         }
     ],
     "aliases": [],

@@ -25,7 +25,9 @@ class GetCustomerAgent extends Agent
     public function instructions(): string
     {
         $prompt = new SystemPrompt(
-            background: ['You are an AI Agent specialized to get the User ID from the customers name. You must use get_user_id as a tool to get the User ID.'],
+            background: [
+                'You are an AI Agent specialized to get the User ID from the customers name. You must use get_user_id as a tool to get the User ID.',
+            ],
             steps: [
                 'Ask for the customers name and find the User ID in the Database.',
             ],
@@ -53,7 +55,7 @@ class GetCustomerAgent extends Agent
                     ),
                 )
                 ->setCallable(
-                // Pseudo implementation
+                    // Pseudo implementation
                     function (string $customerName): int {
                         return strlen($customerName);
                     },

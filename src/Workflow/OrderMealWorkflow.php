@@ -13,7 +13,6 @@ use Notdefine\Workflow\Node\DetermineMealNode;
 use Notdefine\Workflow\Node\OrderCompleteNode;
 use Notdefine\Workflow\Node\OrderIncompleteNode;
 
-
 class OrderMealWorkflow extends Workflow
 {
     public const KI_RESPONSE = 'response';
@@ -22,6 +21,7 @@ class OrderMealWorkflow extends Workflow
 
     public function nodes(): array
     {
+        dump('nodes');
         // Nodes do the work, Edges tell what to do next.
         return [
             new DetermineCustomerNode(),
@@ -39,16 +39,16 @@ class OrderMealWorkflow extends Workflow
         /** @customer Customer $customer */
         $customer = $state->get(self::CUSTOMER_OBJECT);
         if ($customer === null) {
-            echo "[CustomerState unknown]" . PHP_EOL;
+            echo '[CustomerState unknown]' . PHP_EOL;
             return false;
         }
 
         if ($customer->getCustomerId() === 0) {
-            echo "[CustomerState Customer ID is wrong]" . PHP_EOL;
+            echo '[CustomerState Customer ID is wrong]' . PHP_EOL;
             return false;
         }
 
-        echo "[CustomerState is set with " . $customer->getCustomerId() . ']' . PHP_EOL;
+        echo '[CustomerState is set with ' . $customer->getCustomerId() . ']' . PHP_EOL;
         return true;
     }
 
@@ -56,14 +56,16 @@ class OrderMealWorkflow extends Workflow
     {
         return [
             new Edge(
-                DetermineCustomerNode::class, DetermineMealNode::class,
+                DetermineCustomerNode::class,
+                DetermineMealNode::class,
                 function (WorkflowState $state): bool {
                     return $this->isCustomerStateDone($state);
                 },
             ),
 
             new Edge(
-                DetermineCustomerNode::class, OrderIncompleteNode::class,
+                DetermineCustomerNode::class,
+                OrderIncompleteNode::class,
                 function (WorkflowState $state): bool {
                     return !$this->isCustomerStateDone($state);
                 },
@@ -87,7 +89,3 @@ class OrderMealWorkflow extends Workflow
     }
 
 }
-
-
-
-

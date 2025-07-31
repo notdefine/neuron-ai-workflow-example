@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Notdefine\Workflow\Node;
 
-
 use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Workflow\Node;
 use NeuronAI\Workflow\WorkflowState;

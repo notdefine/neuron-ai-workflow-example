@@ -31,4 +31,3 @@ trait InspectorTrait
         return $agent;
     }
 }
-
