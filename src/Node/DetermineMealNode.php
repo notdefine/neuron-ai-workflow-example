@@ -17,11 +17,15 @@ class DetermineMealNode extends Node
 {
     use InspectorTrait;
 
+    public function __construct(
+        private readonly MealOrderAgent $mealOrderAgentStructured,
+        private readonly MealOrderAgent $mealOrderAgentChat,
+    ) {}
+
     public function run(WorkflowState $state): WorkflowState
     {
         echo self::class . PHP_EOL;
-        $mealOrderAgentStructured = MealOrderAgent::make();
-        $mealOrderAgentStructured = $this->addAgentMonitoring($mealOrderAgentStructured);
+        $mealOrderAgentStructured = $this->addAgentMonitoring($this->mealOrderAgentStructured);
 
         /** @var MealStructure $mealOrderAgentStructuredResponse */
         $mealOrderAgentStructuredResponse = $mealOrderAgentStructured->structured(
@@ -34,8 +38,7 @@ class DetermineMealNode extends Node
             return $state;
         }
 
-        $mealOrderAgentChat = MealOrderAgent::make();
-        $mealOrderAgentChat = $this->addAgentMonitoring($mealOrderAgentChat);
+        $mealOrderAgentChat = $this->addAgentMonitoring($this->mealOrderAgentChat);
 
         $mealOrderAgentChatResponse = $mealOrderAgentChat->chat(
             new UserMessage($state->get('user_input')),

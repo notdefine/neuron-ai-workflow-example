@@ -47,7 +47,7 @@ $response = $agent->chat(new UserMessage(...));
             steps: [
                 'Get all details needed what the customer wants to eat and drink. Get the Customers name for the delivery.',
                 'Suggest a matching meal and drink.',
-                'Show a order summary.',
+                'Show a order summary. And let the customer approve the order.',
             ],
             output: [
                 'Write a summary of the Order in a paragraph without using lists. Use just fluent text.',
